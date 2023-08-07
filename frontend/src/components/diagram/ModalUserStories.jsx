@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { getDiagram } from '../../service/DiagramService';
+import {
+    API_URL
+} from '../../utils';
+
 
 function ModalUserStories(props) {
     const [userStories, setUserStories] = useState([]);
@@ -19,7 +24,37 @@ function ModalUserStories(props) {
         const userStory = userStories.find(element => elementId === element.id)
         setSelectedUserStory(userStory);
     }
-
+    const handleMicroservice = async () => {
+        try {
+          let v = await getDiagram(props.idDiagram);
+          console.log(v);
+          console.log("Trayendo informacion");
+          const dataToSend = {
+            diagramData: v,
+          };
+      
+          const requestOptions = {
+            method: 'POST', // Método HTTP POST para enviar datos al backend
+            headers: {
+              'Content-Type': 'application/json', // Tipo de contenido que se enviará en el cuerpo de la petición
+            },
+            body: JSON.stringify(dataToSend), // Convierte el objeto dataToSend a una cadena JSON para enviarlo en el cuerpo de la petición
+          };
+      
+          const response = await fetch(`${API_URL}/microservice/pros/`, requestOptions);
+          if (!response.ok) {
+            throw new Error('Error al obtener los datos desde el backend.');
+          }
+         const responseData = await response.json();
+         console.log(responseData);
+      
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+        
+      
+      
     useEffect(() => {
         if (props.modalUserStories._isShown === true) {
             const ListUserStories = props.jsonCreate().userStories;
@@ -159,6 +194,7 @@ function ModalUserStories(props) {
                     </div>
                     <div className="modal-footer border-0">
                         <button type="button" className="btn-two shadow-lg py-1" data-bs-dismiss="modal">Close</button>
+                        <button type="button" className="btn-two shadow-lg py-1" onClick={handleMicroservice} >Microservice</button>
                         {/* Button Create PDF US */}
                         <button className="btn-one shadow-lg py-1" onClick={() => props.openModalPdf()} disabled={!props.loadCreateUserStories}>
                             {

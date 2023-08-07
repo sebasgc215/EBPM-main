@@ -22,7 +22,7 @@ function DiagramCard({ index, diagram, getListDiagrams, showAlert, projectId }) 
         <div className="cont-card-diagrams">
             <div className="card-diagrams bg-one rounded shadow-lg">
                 <div className="d-flex justify-content-between align-items-center py-2 px-3 h-20">
-                    <p className="text-white fw-semibold truncated_text mb-0 pe-3">{diagram.name}</p>
+                    <p className="text-white fw-semibold truncated_text mb-0 pe-3">{diagram.name} </p>
                     <button className="btn-one p-0" data-bs-toggle="modal" data-bs-target={`#diagram${diagram.id}`}>
                         <i className="bi bi-trash-fill text-white fs-6"></i>
                     </button>
