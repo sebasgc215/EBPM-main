@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'projects',
     'diagrams',
     'users',
+    'microservice',
     'association_rules'
 ]
 
