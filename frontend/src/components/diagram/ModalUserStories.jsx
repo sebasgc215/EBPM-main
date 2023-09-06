@@ -46,7 +46,7 @@ function ModalUserStories(props) {
             throw new Error('Error al obtener los datos desde el backend.');
           }
          const responseData = await response.json();
-         console.log(responseData);
+         await console.log(responseData);
       
         } catch (error) {
           console.error("Error:", error);

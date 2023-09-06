@@ -12,6 +12,7 @@ import * as ProjectService from "../../service/ProjectService";
 import DiagramCard from "./DiagramCard";
 import NavBar from "../NavBar";
 import ModalDiagram from "./ModalDiagram";
+import ModalDiagramText from "./ModalDiagramText";
 import Alert from '../Alert';
 import ModalPdf from '../pdfbacklog/ModalPdf';
 import Pagination from "../Pagination";
@@ -218,6 +219,9 @@ function DiagramsCardList() {
                     <button className="btn-one py-2" data-bs-toggle="modal" data-bs-target="#modalDiagram">
                         <i className="bi bi-plus-lg"></i> New Diagram
                     </button>
+                    <button className="btn-one py-2 m-2" data-bs-toggle="modal" data-bs-target="#modalDiagramText">
+                        <i className="bi bi-plus-lg"></i> Create Diagram via Text
+                    </button>
                 </div>
 
                 <div className="d-flex justify-content-between align-items-center mb-3 px-3 w-100">
@@ -266,6 +270,7 @@ function DiagramsCardList() {
                 </div>
 
                 <ModalDiagram mode='Create' handle={handleChange} createNewDiagram={createNewDiagram} />
+                <ModalDiagramText/>
                 <ModalPdf jsonCreate={jsonCreate} modalPdf={modalPdf} refModalPdf={refModalPdf}></ModalPdf>
                 <Alert type={alertType} message={alertMessage} refAlertElement={refAlertElement} />
             </div>
