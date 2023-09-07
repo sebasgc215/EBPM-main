@@ -27,7 +27,6 @@ function ModalUserStories(props) {
     const handleMicroservice = async () => {
         try {
           let v = await getDiagram(props.idDiagram);
-          console.log(v);
           console.log("Trayendo informacion");
           const dataToSend = {
             diagramData: v,
@@ -46,7 +45,7 @@ function ModalUserStories(props) {
             throw new Error('Error al obtener los datos desde el backend.');
           }
          const responseData = await response.json();
-         console.log(responseData);
+         await console.log(responseData);
       
         } catch (error) {
           console.error("Error:", error);

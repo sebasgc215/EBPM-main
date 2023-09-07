@@ -2,6 +2,16 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 import json
 from .clustering import cluster_user_stories
+from .models import DiagramText
+from .serialiazers import DiagramTextSerialiazer
+from core.crud.standard import Crud
+
+crudObject = Crud(DiagramTextSerialiazer, DiagramText)
+
+@api_view(["POST"])
+def create(data):
+    diagram_create = crudObject(data)
+    return diagram_create
 
 def extract_user_story_info(data):
     # Acceder a la lista de user_stories

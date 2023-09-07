@@ -2,6 +2,21 @@ import {
     API_URL
 } from '../utils';
 
+export const createTextDiagram = async (data) => {
+    return await fetch(`${API_URL}/microservice/create/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'name': String(data.name),
+            'json_user_stories': data.json_user_histories,
+            'id_project': String(data.id_project)
+        })
+    }).then(response=> response.json())
+}
+
+
 export const createDiagram = async (data) => {
     return await fetch(`${API_URL}/diagrams/create/`, {
         method: 'POST',
