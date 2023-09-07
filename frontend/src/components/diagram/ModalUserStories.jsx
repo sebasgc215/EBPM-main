@@ -27,7 +27,6 @@ function ModalUserStories(props) {
     const handleMicroservice = async () => {
         try {
           let v = await getDiagram(props.idDiagram);
-          console.log(v);
           console.log("Trayendo informacion");
           const dataToSend = {
             diagramData: v,

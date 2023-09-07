@@ -270,7 +270,7 @@ function DiagramsCardList() {
                 </div>
 
                 <ModalDiagram mode='Create' handle={handleChange} createNewDiagram={createNewDiagram} />
-                <ModalDiagramText/>
+                <ModalDiagramText mode='Create' />
                 <ModalPdf jsonCreate={jsonCreate} modalPdf={modalPdf} refModalPdf={refModalPdf}></ModalPdf>
                 <Alert type={alertType} message={alertMessage} refAlertElement={refAlertElement} />
             </div>
