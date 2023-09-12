@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import DiagramText
 
 class DiagramTextSerialiazer(serializers.ModelSerializer):
-    json_user_histories = serializers.JSONField()
+    json_user_stories = serializers.JSONField()
 
     class Meta:
         model = DiagramText

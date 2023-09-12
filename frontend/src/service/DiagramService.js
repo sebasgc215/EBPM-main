@@ -8,13 +8,10 @@ export const createTextDiagram = async (data) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            'name': String(data.name),
-            'json_user_stories': data.json_user_histories,
-            'id_project': String(data.id_project)
-        })
-    }).then(response=> response.json())
+        body: JSON.stringify(data) // No necesitas anidarlos en un objeto {data}
+    }).then(response => response.json());
 }
+
 
 
 export const createDiagram = async (data) => {
