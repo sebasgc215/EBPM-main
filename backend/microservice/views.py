@@ -9,8 +9,8 @@ from core.crud.standard import Crud
 crudObject = Crud(DiagramTextSerialiazer, DiagramText)
 
 @api_view(["POST"])
-def create(data):
-    diagram_create = crudObject(data)
+def create(request):
+    diagram_create = crudObject.create(request)
     return diagram_create
 
 def extract_user_story_info(data):
