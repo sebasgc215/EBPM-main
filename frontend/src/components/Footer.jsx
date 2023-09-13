@@ -23,7 +23,7 @@ const Footer = () => {
                 </div>
 
                 <div className="text-center mb-2">
-                    <p className="text-white">Developed by <strong className="text-white">Andrés García & Kevin Cifuentes</strong></p>
+                    <p className="text-white">Developed by <strong className="text-white">Juan Sebastian Grajales Cruz</strong></p>
                 </div>
 
                 <div className="text-center">
