@@ -37,6 +37,12 @@ export const listDiagram = async (projectId) => {
     }).then(response => response.json())
 }
 
+export const listDiagramText = async(projectId) => {
+    return await fetch(`${API_URL}/microservice/list/${projectId}`, {
+        method: "GET",
+    }).then(response => response.json())
+}
+
 export const getDiagram = async (diagramId) => {
     return await fetch(`${API_URL}/diagrams/get/${diagramId}`, {
         method: "GET",
@@ -62,6 +68,12 @@ export const updateDiagram = async (data, diagramId) => {
 
 export const deleteDiagram = async (diagramId) => {
     return await fetch(`${API_URL}/diagrams/delete/${diagramId}`, {
+        method: "DELETE",
+    })
+}
+
+export const deleteDiagramText = async (diagramId) => {
+    return await fetch(`${API_URL}/microservice/delete/${diagramId}`, {
         method: "DELETE",
     })
 }

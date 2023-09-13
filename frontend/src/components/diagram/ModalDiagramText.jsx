@@ -56,10 +56,12 @@ function ModalDiagramText(props) {
     }
 
 
-
-    useEffect(() => {
-        console.log(userStories); // Realiza el console.log aquí
+/**
+ *  useEffect(() => {
+        console.log(userStories); 
     }, [userStories]);
+ */
+   
     
 
     const createTextDiagram = async (e) => {
