@@ -10,6 +10,7 @@ import * as ProjectService from "../../service/ProjectService";
 
 // Components
 import DiagramCard from "./DiagramCard";
+import DiagramTextCard from "./DiagramTextCard";
 import NavBar from "../NavBar";
 import ModalDiagram from "./ModalDiagram";
 import ModalDiagramText from "./ModalDiagramText";
@@ -22,6 +23,7 @@ function DiagramsCardList() {
     const { projectId } = useParams();
     let navigate = useNavigate();
     const [diagrams, setDiagrams] = useState([{}])
+    const [diagramText, setDiagramText] = useState([{}])
     const [project, setProject] = useState({})
     const [newDiagram, setNewDiagram] = useState({
         name: '',
@@ -40,7 +42,7 @@ function DiagramsCardList() {
     const indexOfLastDiagram = currentPage * diagramsPerPage;
     const indexOfFirstDiagram = indexOfLastDiagram - diagramsPerPage;
     const currentDiagrams = diagrams.slice(indexOfFirstDiagram, indexOfLastDiagram);
-
+    const currentDiagramText = diagramText.slice(indexOfFirstDiagram, indexOfLastDiagram);
     const getListDiagrams = () => {
         setLoadDiagrams(false)
         try {
@@ -50,6 +52,17 @@ function DiagramsCardList() {
             })
         } catch (error) {
             // console.log(error)
+        }
+    }
+
+    const getListDiagramText = () =>{
+        try {
+            DiagramService.listDiagramText(projectId).then(res =>
+                {
+                    setDiagramText(res.data)
+                })
+        } catch (error) {
+            
         }
     }
 
@@ -198,10 +211,11 @@ function DiagramsCardList() {
         setTimeout(() => {
             getScrollBarWidth()
         }, 200)
-    }, [diagrams]);
+    }, [diagrams, diagramText]);
 
     useEffect(() => {
         getListDiagrams()
+        getListDiagramText()
         getProject()
 
         window.onresize = () => {
@@ -240,6 +254,23 @@ function DiagramsCardList() {
                             <div>
                                 <div className="d-flex flex-wrap mb-5">
                                     {
+                                        diagramText.length > 0 ?
+                                            (
+                                                currentDiagramText.map(
+                                                    (element, i) =>
+                                                        <DiagramTextCard key={i} index={i} diagram={element} getListDiagrams={getListDiagramText} showAlert={showAlert} projectId={projectId} />
+                                                )
+                                            )
+                                            :
+                                            <div className="cont-card-diagrams">
+                                                <div className="card-diagrams bg-three d-flex justify-content-center align-items-center rounded shadow-lg border-dashed m-3">
+                                                    <div className="d-flex flex-wrap text-center">
+                                                        <i className="bi bi-slash-circle fs-3 w-100"></i>
+                                                        <span className="w-100">Empty</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    }{
                                         diagrams.length > 0 ?
                                             (
                                                 currentDiagrams.map(

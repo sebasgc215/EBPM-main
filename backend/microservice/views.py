@@ -13,6 +13,17 @@ def create(request):
     diagram_create = crudObject.create(request)
     return diagram_create
 
+@api_view(['GET'])
+def list(request, projectId):
+    diagramList = crudObject.list(request, "project", projectId)
+    return diagramList
+
+@api_view(['DELETE'])
+def delete(request, diagramId):
+    diagramDelete = crudObject.delete(
+        diagramId, 'The diagram has been successfully removed')
+    return diagramDelete
+
 def extract_user_story_info(data):
     # Acceder a la lista de user_stories
     user_stories = data["userStories"]
