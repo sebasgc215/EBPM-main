@@ -31,6 +31,7 @@ root.render(
       <Route exact path="/project/:projectId/diagrams" element={<RequireAuth><DiagramsCardList /></RequireAuth>}></Route>
       <Route exact path="/project/:projectId/diagram/:diagramId" element={<RequireAuth><ModelerComponent /></RequireAuth>}></Route>
       <Route exact path="/projects" element={<RequireAuth><ProjectsList /></RequireAuth>}></Route>
+      <Route exact path="/projects/:projectId/textDiagram/:diagramId" element={<RequireAuth></RequireAuth>}></Route>
 
     </Routes>
   </BrowserRouter>

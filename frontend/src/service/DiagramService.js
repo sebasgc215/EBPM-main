@@ -48,7 +48,11 @@ export const getDiagram = async (diagramId) => {
         method: "GET",
     }).then(response => response.json())
 }
-
+export const getDiagramText = async(diagramId) =>{
+    return await fetch(`${API_URL}/microservice/get/${diagramId}`, {
+        method: "GET",
+    }).then(response => response.json())
+}
 export const updateDiagram = async (data, diagramId) => {
     return await fetch(`${API_URL}/diagrams/update/${diagramId}`, {
         method: 'PUT',
