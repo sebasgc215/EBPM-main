@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 import json
-from .clustering import cluster_user_stories
+from .clustering import cluster_user_stories, cluster_text_user_stories
 from .models import DiagramText
 from .serialiazers import DiagramTextSerialiazer
 from core.crud.standard import Crud
@@ -17,6 +17,11 @@ def create(request):
 def list(request, projectId):
     diagramList = crudObject.list(request, "project", projectId)
     return diagramList
+
+@api_view(['GET'])
+def get(request, diagramId):
+    diagramGet = crudObject.get(request, diagramId)
+    return diagramGet
 
 @api_view(['DELETE'])
 def delete(request, diagramId):
@@ -50,6 +55,43 @@ def extract_user_story_info(data):
 
     return user_stories_info
 
+@api_view(['POST'])
+def microtext(request):
+    try:
+        data = json.loads(request.body)
+        diagram_data = data.get('diagramData', {})
+
+        # Llama a la función cluster_user_stories con los datos
+        clusters = cluster_text_user_stories(diagram_data)
+
+        # Crear una lista de cadenas para representar los clusters
+        cluster_strings = []
+
+        # Iterar a través de los clusters y sus historias
+        for cluster_id, stories in clusters.items():
+            # Crear una cadena para representar el cluster
+            cluster_string = f'Cluster {cluster_id + 1}: '
+
+            # Agregar los nombres de las historias al cluster
+            story_strings = [f'{story[0]}, {story[1]}' for story in stories]
+
+            # Concatenar los nombres de las historias con comas y espacios
+            cluster_string += ', '.join(story_strings)
+
+            # Agregar esta cadena al resultado
+            cluster_strings.append(cluster_string)
+
+        # Unir todas las cadenas de cluster con saltos de línea
+        response_data = '\n'.join(cluster_strings)
+
+        # Devolver la respuesta como un JsonResponse
+        return JsonResponse({'clusters': response_data})
+
+
+
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'JSON data is invalid'}, status=400)
+
 
 
 @api_view(['POST'])
@@ -59,6 +101,7 @@ def pros(request):
         data = json.loads(request.body)
         
         diagram_data = data.get('diagramData', {})  
+
         if 'data' in diagram_data:
             diagram_info = diagram_data['data']
             diagram_name = diagram_info.get('name', 'Nombre por defecto')  
@@ -76,9 +119,6 @@ def pros(request):
             response_data = {
                 'success': True,
                 'diagram_name': diagram_name,
-                # ...otros datos que quieras enviar al frontend...
-                #'User Stories': user_story_info,
-               # 'clusters': clusters_array,
                 'stories': stories
             }
 

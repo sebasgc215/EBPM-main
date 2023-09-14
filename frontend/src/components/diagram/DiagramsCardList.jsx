@@ -35,6 +35,7 @@ function DiagramsCardList() {
     const [modalPdf, setModalPdf] = useState('');
     const [refModalPdf] = useState(React.createRef());
     const [loadDiagrams, setLoadDiagrams] = useState(false);
+    const [loadTextDiagrams, setLoadTextDiagrams] = useState(false);
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [diagramsPerPage] = useState(40);
@@ -56,10 +57,12 @@ function DiagramsCardList() {
     }
 
     const getListDiagramText = () =>{
+        setLoadDiagrams(false)
         try {
             DiagramService.listDiagramText(projectId).then(res =>
                 {
                     setDiagramText(res.data)
+                    setLoadTextDiagrams(true)
                 })
         } catch (error) {
             
@@ -250,7 +253,7 @@ function DiagramsCardList() {
 
                 <div className="d-flex justify-content-center">
                     {
-                        loadDiagrams ?
+                        loadTextDiagrams ?
                             <div>
                                 <div className="d-flex flex-wrap mb-5">
                                     {
