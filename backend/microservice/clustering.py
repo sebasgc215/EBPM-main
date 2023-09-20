@@ -93,21 +93,23 @@ def cluster_user_stories(user_stories):
 
     return clusters
 
-
-
-
 def find_optimal_k(data):
+    if len(data) == 0:
+        # Handle the case where the input is empty
+        raise ValueError("Input array 'data' is empty")
+
     n_samples = len(data)
+    print(n_samples)
     silhouette_scores = []
-    
+
     for k in range(2, n_samples):
         kmeans = KMeans(n_clusters=k)
         cluster_labels = kmeans.fit_predict(data)
         silhouette_values = silhouette_samples(data, cluster_labels)
         avg_silhouette = silhouette_values.mean()
         silhouette_scores.append(avg_silhouette)
-    
+
     # Find the index of the maximum silhouette score
     optimal_k = np.argmax(silhouette_scores) + 2
-    
+
     return optimal_k
