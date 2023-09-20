@@ -60,7 +60,7 @@ def microtext(request):
     try:
         data = json.loads(request.body)
         diagram_data = data.get('diagramData', {})
-
+        print(diagram_data)
         # Llama a la función cluster_user_stories con los datos
         clusters = cluster_text_user_stories(diagram_data)
 

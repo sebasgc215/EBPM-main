@@ -1,5 +1,6 @@
 import * as DiagramService from "../../service/DiagramService"
 import React, { useEffect } from "react";
+import { Link } from 'react-router-dom';
 import {
     API_URL
 } from '../../utils';
@@ -55,12 +56,16 @@ function DiagramTextCard({ diagram, getListDiagrams, showAlert, projectId }) {
                     </button>
                 </div>
                 <div className="h-80 p-1 pt-0 bg-white mb-4 text-center p-4">
-                    <button className="btn-one py-2 m-4" onClick={handleTextMs} >
-                            MS
-                        </button>
+                    
                    {/* <Link to={`/project/${projectId}/diagram/${diagram.id}`}>
                         <div id={`diagram ${diagram.id}`} className="svg-diagram bg-white rounded overflow-hidden h-100"></div>
+                        <button className="btn-one py-2 m-4" onClick={handleTextMs} >
+                            MS
+                        </button>
                     </Link> */}
+                    <Link to={`/project/${projectId}/textDiagram/${diagram.id}`}>
+                        <div id={`diagram ${diagram.id}`} className="svg-diagram bg-white rounded overflow-hidden h-100"></div>
+                    </Link>
                 </div>
             </div>
 
