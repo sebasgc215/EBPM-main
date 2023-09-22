@@ -2,32 +2,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 import json
 from .clustering import cluster_user_stories, cluster_text_user_stories
-from .models import DiagramText
-from .serialiazers import DiagramTextSerialiazer
-from core.crud.standard import Crud
 
-crudObject = Crud(DiagramTextSerialiazer, DiagramText)
-
-@api_view(["POST"])
-def create(request):
-    diagram_create = crudObject.create(request)
-    return diagram_create
-
-@api_view(['GET'])
-def list(request, projectId):
-    diagramList = crudObject.list(request, "project", projectId)
-    return diagramList
-
-@api_view(['GET'])
-def get(request, diagramId):
-    diagramGet = crudObject.get(request, diagramId)
-    return diagramGet
-
-@api_view(['DELETE'])
-def delete(request, diagramId):
-    diagramDelete = crudObject.delete(
-        diagramId, 'The diagram has been successfully removed')
-    return diagramDelete
 
 def extract_user_story_info(data):
     # Acceder a la lista de user_stories
@@ -95,7 +70,7 @@ def microtext(request):
 
 
 @api_view(['POST'])
-def pros(request):
+def microdiagram(request):
     try:
         
         data = json.loads(request.body)

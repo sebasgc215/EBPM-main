@@ -27,5 +27,6 @@ urlpatterns = [
     path('diagrams/', include(('diagrams.urls', 'diagrams'), namespace='diagrams')),
     path('association_rules/', include(('association_rules.urls', 'association_rules'), namespace='association_rules')),
     path('microservice/',include(('microservice.urls', 'microservice'),namespace='microservice')),
+    path("diagramtext/", include(("diagramtext.urls", "diagramtext"), namespace="diagramtext")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

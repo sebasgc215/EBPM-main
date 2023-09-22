@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     'diagrams',
     'users',
     'microservice',
-    'association_rules'
+    'association_rules',
+    'diagramtext',
 ]
 
 MIDDLEWARE = [

@@ -3,7 +3,7 @@ import {
 } from '../utils';
 
 export const createTextDiagram = async (data) => {
-    return await fetch(`${API_URL}/microservice/create/`, {
+    return await fetch(`${API_URL}/diagramtext/create/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ export const listDiagram = async (projectId) => {
 }
 
 export const listDiagramText = async(projectId) => {
-    return await fetch(`${API_URL}/microservice/list/${projectId}`, {
+    return await fetch(`${API_URL}/diagramtext/list/${projectId}`, {
         method: "GET",
     }).then(response => response.json())
 }
@@ -49,7 +49,7 @@ export const getDiagram = async (diagramId) => {
     }).then(response => response.json())
 }
 export const getDiagramText = async(diagramId) =>{
-    return await fetch(`${API_URL}/microservice/get/${diagramId}`, {
+    return await fetch(`${API_URL}/diagramtext/get/${diagramId}`, {
         method: "GET",
     }).then(response => response.json())
 }
@@ -77,7 +77,7 @@ export const deleteDiagram = async (diagramId) => {
 }
 
 export const deleteDiagramText = async (diagramId) => {
-    return await fetch(`${API_URL}/microservice/delete/${diagramId}`, {
+    return await fetch(`${API_URL}/diagramtext/delete/${diagramId}`, {
         method: "DELETE",
     })
 }
