@@ -40,7 +40,7 @@ function ModalUserStories(props) {
             body: JSON.stringify(dataToSend), // Convierte el objeto dataToSend a una cadena JSON para enviarlo en el cuerpo de la petición
           };
       
-          const response = await fetch(`${API_URL}/microservice/pros/`, requestOptions);
+          const response = await fetch(`${API_URL}/microservice/microdiagram/`, requestOptions);
           if (!response.ok) {
             throw new Error('Error al obtener los datos desde el backend.');
           }
