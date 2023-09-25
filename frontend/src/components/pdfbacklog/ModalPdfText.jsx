@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { PDFViewer } from '@react-pdf/renderer';
 import DocumentPdf from './DocumentPdf';
 
-function ModalPdf(props) {
+function ModalPdfText(props) {
     const [userStories, setUserStories] = useState([]);
+    const [userStoriesText, setTextUserStories] = useState([]);
     const [selectedUserStory, setSelectedUserStory] = useState({
         id: '',
         name: '',
@@ -20,7 +21,9 @@ function ModalPdf(props) {
         if (props.modalPdf._isShown === true) {
             const ListUserStories = props.jsonCreate().userStories;
             setUserStories(ListUserStories);
-            
+            const listText = props.jsonText().userStories;
+            setTextUserStories(listText);
+            console.log(listText)
             
 
             ListUserStories.map((e) => {
@@ -54,7 +57,7 @@ function ModalPdf(props) {
                     </div>
                     <div className="modal-body d-flex p-0">
                         <PDFViewer style={{ width: "100%", height: "100%" }}>
-                            <DocumentPdf userStories={userStories}  />
+                            <DocumentPdf userStories={userStories} textStories={userStoriesText} />
                         </PDFViewer>
                     </div>
                 </div>
@@ -63,4 +66,4 @@ function ModalPdf(props) {
     )
 }
 
-export default ModalPdf;
+export default ModalPdfText;

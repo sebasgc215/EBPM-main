@@ -14,7 +14,7 @@ const Footer = () => {
             {/* Footer */}
             <div className="bg-one py-4">
                 <div className="text-center mb-2">
-                    <Link className="navbar-brand title text-white fs-32 fw-bold" to="/">EBPM</Link>
+                    <Link className="navbar-brand title text-white fs-32 fw-bold" to="/">MGPB</Link>
                 </div>
 
                 <div className="d-flex justify-content-center mb-2">
@@ -23,7 +23,7 @@ const Footer = () => {
                 </div>
 
                 <div className="text-center mb-2">
-                    <p className="text-white">Developed by <strong className="text-white">Andrés García & Kevin Cifuentes</strong></p>
+                    <p className="text-white">Developed by <strong className="text-white">Fabian Urrutia & Sebastian Grajales</strong></p>
                 </div>
 
                 <div className="text-center">
