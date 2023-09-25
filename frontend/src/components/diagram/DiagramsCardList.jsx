@@ -16,6 +16,7 @@ import ModalDiagram from "./ModalDiagram";
 import ModalDiagramText from "./ModalDiagramText";
 import Alert from '../Alert';
 import ModalPdf from '../pdfbacklog/ModalPdf';
+import ModalPdfText from "../pdfbacklog/ModalPdfText";
 import Pagination from "../Pagination";
 import Footer from "../Footer";
 
@@ -199,6 +200,31 @@ function DiagramsCardList() {
         }
     }
 
+    const jsonCreateText = () => {
+        var arrUserStories = [];
+        var lengthUserStories = 0;
+      
+        diagramText.forEach((diagram) => {
+          const elements = JSON.parse(diagram.json_user_stories);
+      
+          elements.forEach((us) => {
+            // Change id user story
+            
+      
+            // Change id dependencies
+            
+            arrUserStories.push(us);
+          });
+      
+          lengthUserStories += elements.length;
+        });
+      
+        return {
+          projectId: projectId, 
+          userStories: arrUserStories,
+        };
+      };
+
     const openModalPdf = async () => {
         const modal = new Modal(refModalPdf.current, options);
         modal.show();
@@ -214,6 +240,7 @@ function DiagramsCardList() {
         setTimeout(() => {
             getScrollBarWidth()
         }, 200)
+        console.log(diagramText);
     }, [diagrams, diagramText]);
 
     useEffect(() => {
@@ -305,7 +332,7 @@ function DiagramsCardList() {
 
                 <ModalDiagram mode='Create' handle={handleChange} createNewDiagram={createNewDiagram} />
                 <ModalDiagramText mode='Create' projectId={projectId} />
-                <ModalPdf jsonCreate={jsonCreate} modalPdf={modalPdf} refModalPdf={refModalPdf}></ModalPdf>
+                <ModalPdfText jsonCreate={jsonCreate} jsonText={jsonCreateText} modalPdf={modalPdf} refModalPdf={refModalPdf}></ModalPdfText>
                 <Alert type={alertType} message={alertMessage} refAlertElement={refAlertElement} />
             </div>
 

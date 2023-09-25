@@ -85,6 +85,19 @@ function DocumentPdf(props) {
                             <Text style={styles.row7}>{row.dependencies}</Text>
                         </View>
                     ))}
+                    {props.textStories?.map((row, i) => (
+                        <View key={i} style={styles.row} wrap={false}>
+                            <Text style={styles.row1}>{row.id_us}</Text>
+                            <Text style={styles.row2}>{row.name_us}</Text>
+                            <Text style={styles.row3}>Actor</Text>
+                            <Text style={styles.row4}>Purpose</Text>
+                            <Text style={styles.row5}>{row.points}</Text>
+                            <Text style={styles.row6}>Priority</Text>
+                            <Text style={styles.row7}>{row.dependencies}</Text>
+                        </View>
+                    ))
+
+                    }
                 </View>
             </Page>
         </Document>
