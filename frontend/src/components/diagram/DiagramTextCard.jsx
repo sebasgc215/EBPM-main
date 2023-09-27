@@ -5,7 +5,11 @@ import {
     API_URL
 } from '../../utils';
 
+
 function DiagramTextCard({ diagram, getListDiagrams, showAlert, projectId }) {
+
+    
+
     const deleteDiagram = async () => {
         try {
             DiagramService.deleteDiagramText(diagram.id).then(res => {
