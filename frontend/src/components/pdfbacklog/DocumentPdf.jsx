@@ -85,18 +85,6 @@ function DocumentPdf(props) {
                             <Text style={styles.row7}>{row.dependencies}</Text>
                         </View>
                     ))}
-                    {props.textStories?.map((row, i) => (
-                        <View key={i} style={styles.row} wrap={false}>
-                            <Text style={styles.row1}>{row.id_us}</Text>
-                            <Text style={styles.row2}>{row.name_us}</Text>
-                            <Text style={styles.row3}>{row.developer !== '' ? `${row.developer}` : ''}</Text>
-                            <Text style={styles.row4}>As a {row.developer.toLowerCase()}, I want to {row.name_us.toLowerCase()} {row.purpose !== '' ? `to ${row.purpose.toLowerCase()}` : ''}</Text>
-                            <Text style={styles.row5}>{row.points}</Text>
-                            <Text style={styles.row6}>{row.priority}</Text>
-                            <Text style={styles.row7}>{row.dependencies}</Text>
-                        </View>
-                    ))
-                    }
                 </View>
             </Page>
         </Document>

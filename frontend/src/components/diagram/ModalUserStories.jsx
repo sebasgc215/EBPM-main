@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getDiagram } from '../../service/DiagramService';
 import {
-    API_URL
+    API_URL, MICROSERVICE_VIEWER_URL
 } from '../../utils';
 
 
@@ -28,6 +28,7 @@ function ModalUserStories(props) {
         try {
           let v = await getDiagram(props.idDiagram);
           console.log("Trayendo informacion");
+          console.log(v);
           const dataToSend = {
             diagramData: v,
           };
@@ -40,13 +41,24 @@ function ModalUserStories(props) {
             body: JSON.stringify(dataToSend), // Convierte el objeto dataToSend a una cadena JSON para enviarlo en el cuerpo de la petición
           };
       
-          const response = await fetch(`${API_URL}/microservice/microdiagram/`, requestOptions);
-          if (!response.ok) {
-            throw new Error('Error al obtener los datos desde el backend.');
-          }
-         const responseData = await response.json();
-         await console.log(responseData);
-      
+        fetch(`${API_URL}/microservice/microdiagram/`, requestOptions)
+        .then(response => {
+            console.log(response)
+            return response.json();
+        })
+        .then(result => {
+            const {sucess, data} = result;
+            console.log(data);
+            const diagrama = encodeURIComponent(JSON.stringify(data));
+            const url = `${MICROSERVICE_VIEWER_URL}?diagrama=${diagrama}`;
+            window.open(url, '_blank', 'noopener,noreferrer');
+            
+        })
+        .catch(error => {
+            console.error('Error in the fetch:', error);
+        });
+
+    
         } catch (error) {
           console.error("Error:", error);
         }

@@ -10,13 +10,10 @@ import * as ProjectService from "../../service/ProjectService";
 
 // Components
 import DiagramCard from "./DiagramCard";
-import DiagramTextCard from "./DiagramTextCard";
 import NavBar from "../NavBar";
 import ModalDiagram from "./ModalDiagram";
-import ModalDiagramText from "./ModalDiagramText";
 import Alert from '../Alert';
 import ModalPdf from '../pdfbacklog/ModalPdf';
-import ModalPdfText from "../pdfbacklog/ModalPdfText";
 import Pagination from "../Pagination";
 import Footer from "../Footer";
 
@@ -24,7 +21,6 @@ function DiagramsCardList() {
     const { projectId } = useParams();
     let navigate = useNavigate();
     const [diagrams, setDiagrams] = useState([{}])
-    const [diagramText, setDiagramText] = useState([{}])
     const [project, setProject] = useState({})
     const [newDiagram, setNewDiagram] = useState({
         name: '',
@@ -36,7 +32,6 @@ function DiagramsCardList() {
     const [modalPdf, setModalPdf] = useState('');
     const [refModalPdf] = useState(React.createRef());
     const [loadDiagrams, setLoadDiagrams] = useState(false);
-    const [loadTextDiagrams, setLoadTextDiagrams] = useState(false);
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [diagramsPerPage] = useState(40);
@@ -44,7 +39,6 @@ function DiagramsCardList() {
     const indexOfLastDiagram = currentPage * diagramsPerPage;
     const indexOfFirstDiagram = indexOfLastDiagram - diagramsPerPage;
     const currentDiagrams = diagrams.slice(indexOfFirstDiagram, indexOfLastDiagram);
-    const currentDiagramText = diagramText.slice(indexOfFirstDiagram, indexOfLastDiagram);
     const getListDiagrams = () => {
         setLoadDiagrams(false)
         try {
@@ -57,18 +51,7 @@ function DiagramsCardList() {
         }
     }
 
-    const getListDiagramText = () =>{
-        setLoadDiagrams(false)
-        try {
-            DiagramService.listDiagramText(projectId).then(res =>
-                {
-                    setDiagramText(res.data)
-                    setLoadTextDiagrams(true)
-                })
-        } catch (error) {
-            
-        }
-    }
+   
 
     const getProject = () => {
         try {
@@ -200,31 +183,6 @@ function DiagramsCardList() {
         }
     }
 
-    const jsonCreateText = () => {
-        var arrUserStories = [];
-        var lengthUserStories = 0;
-      
-        diagramText.forEach((diagram) => {
-          const elements = JSON.parse(diagram.json_user_stories);
-      
-          elements.forEach((us) => {
-            // Change id user story
-            
-      
-            // Change id dependencies
-            
-            arrUserStories.push(us);
-          });
-      
-          lengthUserStories += elements.length;
-        });
-      
-        return {
-          projectId: projectId, 
-          userStories: arrUserStories,
-        };
-      };
-
     const openModalPdf = async () => {
         const modal = new Modal(refModalPdf.current, options);
         modal.show();
@@ -240,12 +198,11 @@ function DiagramsCardList() {
         setTimeout(() => {
             getScrollBarWidth()
         }, 200)
-        console.log(diagramText);
-    }, [diagrams, diagramText]);
+        
+    }, [diagrams ]);
 
     useEffect(() => {
         getListDiagrams()
-        getListDiagramText()
         getProject()
 
         window.onresize = () => {
@@ -263,9 +220,7 @@ function DiagramsCardList() {
                     <button className="btn-one py-2" data-bs-toggle="modal" data-bs-target="#modalDiagram">
                         <i className="bi bi-plus-lg"></i> New Diagram
                     </button>
-                    <button className="btn-one py-2 m-2" data-bs-toggle="modal" data-bs-target="#modalDiagramText">
-                        <i className="bi bi-plus-lg"></i> Create Diagram via Text
-                    </button>
+                    
                 </div>
 
                 <div className="d-flex justify-content-between align-items-center mb-3 px-3 w-100">
@@ -280,27 +235,10 @@ function DiagramsCardList() {
 
                 <div className="d-flex justify-content-center">
                     {
-                        loadTextDiagrams ?
+                        loadDiagrams ?
                             <div>
                                 <div className="d-flex flex-wrap mb-5">
                                     {
-                                        diagramText.length > 0 ?
-                                            (
-                                                currentDiagramText.map(
-                                                    (element, i) =>
-                                                        <DiagramTextCard key={i} index={i} diagram={element} getListDiagrams={getListDiagramText} showAlert={showAlert} projectId={projectId} />
-                                                )
-                                            )
-                                            :
-                                            <div className="cont-card-diagrams">
-                                                <div className="card-diagrams bg-three d-flex justify-content-center align-items-center rounded shadow-lg border-dashed m-3">
-                                                    <div className="d-flex flex-wrap text-center">
-                                                        <i className="bi bi-slash-circle fs-3 w-100"></i>
-                                                        <span className="w-100">Empty</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    }{
                                         diagrams.length > 0 ?
                                             (
                                                 currentDiagrams.map(
@@ -331,8 +269,7 @@ function DiagramsCardList() {
                 </div>
 
                 <ModalDiagram mode='Create' handle={handleChange} createNewDiagram={createNewDiagram} />
-                <ModalDiagramText mode='Create' projectId={projectId} />
-                <ModalPdfText jsonCreate={jsonCreate} jsonText={jsonCreateText} modalPdf={modalPdf} refModalPdf={refModalPdf}></ModalPdfText>
+                <ModalPdf jsonCreate={jsonCreate}  modalPdf={modalPdf} refModalPdf={refModalPdf}></ModalPdf>
                 <Alert type={alertType} message={alertMessage} refAlertElement={refAlertElement} />
             </div>
 
