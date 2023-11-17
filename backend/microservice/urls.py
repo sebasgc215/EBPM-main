@@ -5,5 +5,4 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("microdiagram/", views.microdiagram, name='microdiagram'),
-    path("microtext/", views.microtext, name="microtext"),
 ]

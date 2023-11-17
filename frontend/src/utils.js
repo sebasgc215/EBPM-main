@@ -1,1 +1,2 @@
 export const API_URL = process.env.REACT_APP_API_HOST;
+export const MICROSERVICE_VIEWER_URL = process.env.REACT_APP_MICROSERVICE_VIEWER_URL;

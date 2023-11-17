@@ -9,7 +9,6 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
 import ModelerComponent from './components/diagram/ModelerComponent';
-import ModelerComponentText from './components/diagram/ModelerComponentText';
 import reportWebVitals from './reportWebVitals';
 import RequireAuth from './components/RequireAuth';
 import DiagramsCardList from './components/diagram/DiagramsCardList';
@@ -32,7 +31,6 @@ root.render(
       <Route exact path="/project/:projectId/diagrams" element={<RequireAuth><DiagramsCardList /></RequireAuth>}></Route>
       <Route exact path="/project/:projectId/diagram/:diagramId" element={<RequireAuth><ModelerComponent /></RequireAuth>}></Route>
       <Route exact path="/projects" element={<RequireAuth><ProjectsList /></RequireAuth>}></Route>
-      <Route exact path="/project/:projectId/textDiagram/:diagramId" element={<RequireAuth><ModelerComponentText/></RequireAuth>}></Route>
     </Routes>
   </BrowserRouter>
 );
