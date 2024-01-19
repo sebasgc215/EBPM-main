@@ -15,7 +15,10 @@ def extract_user_story_info(data):
         us_info = {
             "id": user_story["id"],
             "name": user_story["name"],
-            "points": user_story["points"]
+            "points": user_story["points"],
+            "priority":user_story["priority"],
+            "actor": user_story["actor"],
+            "purpose":user_story["purpose"]
         }
 
  
@@ -48,7 +51,7 @@ def microdiagram(request):
             user_story_info = extract_user_story_info(user_stories)
             clusters = cluster_user_stories(user_story_info)
             stories = []
-
+            print(clusters)
             for cluster_id, cluster_stories in clusters.items():
                 stories.append({ 
                     "cohesionLack": 0, 
@@ -56,19 +59,19 @@ def microdiagram(request):
                     "couplingADS": 0,  
                     "couplingAIS": 0,  
                     "couplingSIY": 0, 
-                    "complexity": 0, 
+                    "complexity": sum(story[2] for story in cluster_stories), 
                     "id": f"MS {cluster_id + 1}",
-                    "points": sum(story[2] for story in cluster_stories), 
+                    "points": sum(int(story[2]) for story in cluster_stories), 
                     "semanticSimilarity": 100,  
                     "userStories": [{
                         "id": story[0],
                         "name": story[1],
-                        "description": "",  # You need to provide the description
-                        "actor": "",  # Actor
-                        "points": story[2],  # Assuming points are in index 2
-                        "project": "",  # Project
-                        "priority": "",
-                        "dependencies": story[3] if len(story) > 3 else []  # You need to provide the priority
+                        "description": story[6], 
+                        "actor": story[5], 
+                        "points": story[2],  
+                        "project": diagram_name,  
+                        "priority": story[4],
+                        "dependencies": story[3] if len(story) > 3 else [] 
                     } for story in cluster_stories]
                 })
 

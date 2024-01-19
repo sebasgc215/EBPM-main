@@ -3,18 +3,22 @@ from django.conf import settings
 import spacy
 import gc
 
-
 class SemanticSimilarity:
     nlp = None
 
     def load_nlp(self):
-        self.nlp = spacy.load(settings.SENTENCE_TRANSFORMER_MODEL_NAME)
+        if self.nlp is None:
+            self.nlp = spacy.load(settings.SENTENCE_TRANSFORMER_MODEL_NAME)
 
     def unload_nlp(self):
-        del self.nlp
-        gc.collect()
+        if self.nlp is not None:
+            del self.nlp
+            gc.collect()
 
     def getSimilarity(self, query, corpus, minSimilarity):
+        # Ensure that self.nlp is loaded before using it
+        self.load_nlp()
+
         query = self.nlp(query)
         corpus = self.nlp.pipe(corpus)
         similarDoc = []
