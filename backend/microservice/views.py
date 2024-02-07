@@ -10,7 +10,6 @@ def extract_user_story_info(data):
 
     # Crear una lista para almacenar la información de cada user story
     user_stories_info = []
-    # Recorrer cada user story en la lista
     for user_story in user_stories:
         us_info = {
             "id": user_story["id"],
@@ -21,8 +20,6 @@ def extract_user_story_info(data):
             "purpose":user_story["purpose"]
         }
 
- 
-        # Verificar si el user story tiene dependencias
         if "dependencies" in user_story:
             dependencies = []
             for dependency in user_story["dependencies"]:
